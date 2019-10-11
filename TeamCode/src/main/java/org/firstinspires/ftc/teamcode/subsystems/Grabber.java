@@ -7,38 +7,41 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Grabber implements Subsystem {
 
     private HardwareMap hardwareMap;
+    private DcMotor grabber;
 
-    private DcMotor leftGrabber, rightGrabber;
-    private double leftGrabberPower, rightGrabberPower;
+    private GrabberState grabberState = GrabberState.OFF;
 
     public Grabber(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
     }
-    public void setPower(boolean power){
-        if(power){
-            this.leftGrabberPower = 1.0;
-            this.rightGrabberPower = 1.0;
-        } else {
-            this.leftGrabberPower = 0;
-            this.rightGrabberPower = 0;
+
+    public enum GrabberState{
+        DOWN(1),
+        OFF(0),
+        UP(-1);
+
+        private final double grabberPower;
+        GrabberState(double grabberPower){
+            this.grabberPower = grabberPower;
         }
+
     }
+
+
+    public void setGrabberState(GrabberState grabberState){
+        this.grabberState = grabberState;
+
+    }
+
+
 
     @Override
     public void initHardware() {
-        leftGrabber.setDirection(DcMotor.Direction.REVERSE);
-        rightGrabber.setDirection(DcMotor.Direction.FORWARD);
-
-        leftGrabber = hardwareMap.get(DcMotor.class, "leftGrabber");
-        rightGrabber = hardwareMap.get(DcMotor.class,"rightGrabber");
-
-        leftGrabber.setPower(0);
-        rightGrabber.setPower(0);
+        this.grabber = hardwareMap.get(DcMotor.class, "grabber");
     }
 
     @Override
     public void periodic() {
-        leftGrabber.setPower(leftGrabberPower);
-        rightGrabber.setPower(rightGrabberPower);
+        grabber.setPower(grabberState.grabberPower);
     }
 }
