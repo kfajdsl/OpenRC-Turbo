@@ -13,10 +13,10 @@ public class Drive implements Subsystem {
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
 
-    private double leftFrontPower = 0;
-    private double rightFrontPower = 0;
-    private double leftBackPower = 0;
-    private double rightBackPower = 0;
+    private double leftFrontPower;
+    private double rightFrontPower;
+    private double leftBackPower;
+    private double rightBackPower;
 
     public Drive(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
@@ -31,16 +31,20 @@ public class Drive implements Subsystem {
 
     @Override
     public void initHardware() {
-        leftFrontMotor = hardwareMap.get(DcMotor.class, "LFM");
-        rightFrontMotor = hardwareMap.get(DcMotor.class, "RFM");
-        leftBackMotor = hardwareMap.get(DcMotor.class, "LFM");
-        rightBackMotor = hardwareMap.get(DcMotor.class, "RFM");
+        leftFrontMotor = hardwareMap.get(DcMotor.class, "leftFrontMotor");
+        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFrontMotor");
+        leftBackMotor = hardwareMap.get(DcMotor.class, "leftFrontMotor");
+        rightBackMotor = hardwareMap.get(DcMotor.class, "rightFrontMotor");
 
         leftFrontMotor.setDirection(DcMotor.Direction.FORWARD);
         rightFrontMotor.setDirection(DcMotor.Direction.REVERSE);
         leftBackMotor.setDirection(DcMotor.Direction.FORWARD);
         rightBackMotor.setDirection(DcMotor.Direction.REVERSE);
 
+        leftFrontPower = 0;
+        rightFrontPower = 0;
+        leftBackPower = 0;
+        rightBackPower = 0;
     }
 
     @Override
