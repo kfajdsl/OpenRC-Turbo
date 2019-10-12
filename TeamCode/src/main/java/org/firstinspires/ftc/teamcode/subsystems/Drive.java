@@ -18,6 +18,15 @@ public class Drive implements Subsystem {
     private double leftBackPower;
     private double rightBackPower;
 
+    private int positionRight;
+    private int positionLeft;
+
+    private DcMotor.RunMode runModeLeft;
+    private DcMotor.RunMode runModeRight;
+
+
+
+
     public Drive(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
     }
@@ -28,6 +37,17 @@ public class Drive implements Subsystem {
         this.rightBackPower = rightBackPower;
         this.leftBackPower = leftBackPower;
     }
+
+    public void setMode(DcMotor.RunMode runModeLeft, DcMotor.RunMode runModeRight){
+        this.runModeLeft = runModeLeft;
+        this.runModeRight = runModeRight;
+    }
+
+    public void setTarget(int positionRight, int positionLeft){
+        this.positionRight = positionRight;
+        this.positionLeft = positionLeft;
+    }
+
 
     @Override
     public void initHardware() {
@@ -45,6 +65,9 @@ public class Drive implements Subsystem {
         rightFrontPower = 0;
         leftBackPower = 0;
         rightBackPower = 0;
+
+        runModeRight = DcMotor.RunMode.RUN_WITHOUT_ENCODER;
+        runModeLeft = DcMotor.RunMode.RUN_WITHOUT_ENCODER;
     }
 
     @Override
@@ -54,4 +77,6 @@ public class Drive implements Subsystem {
         leftBackMotor.setPower(leftBackPower);
         rightBackMotor.setPower(rightBackPower);
     }
+
+
 }

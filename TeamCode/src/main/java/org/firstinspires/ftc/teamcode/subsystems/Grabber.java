@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.disnodeteam.dogecommander.Subsystem;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Grabber implements Subsystem {
 
     private HardwareMap hardwareMap;
-    private DcMotor grabber;
+    private Servo leftServo, rightServo;
 
     private GrabberState grabberState = GrabberState.OFF;
 
@@ -16,13 +17,12 @@ public class Grabber implements Subsystem {
     }
 
     public enum GrabberState{
-        DOWN(1),
-        OFF(0),
-        UP(-1);
+        DOWN(180),
+        OFF(0);
 
-        private final double grabberPower;
-        GrabberState(double grabberPower){
-            this.grabberPower = grabberPower;
+        private final double grabberState;
+        GrabberState(double grabberState){
+            this.grabberState = grabberState;
         }
 
     }
@@ -37,11 +37,13 @@ public class Grabber implements Subsystem {
 
     @Override
     public void initHardware() {
-        this.grabber = hardwareMap.get(DcMotor.class, "grabber");
+        this.leftServo = hardwareMap.get(Servo.class, "lgrab");
+        this.rightServo = hardwareMap.get(Servo.class, "rgrab");
     }
 
     @Override
     public void periodic() {
-        grabber.setPower(grabberState.grabberPower);
+        leftServo.setPosition(grabberState.grabberState);
+        rightServo.setPosition(grabberState.grabberState);
     }
 }
