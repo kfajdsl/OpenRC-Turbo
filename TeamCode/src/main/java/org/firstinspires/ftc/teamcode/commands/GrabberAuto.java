@@ -31,7 +31,7 @@ public class GrabberAuto implements Command {
 
     @Override
     public void stop() {
-
+        grabber.setGrabberState(Grabber.GrabberState.OFF);
     }
 
     @Override

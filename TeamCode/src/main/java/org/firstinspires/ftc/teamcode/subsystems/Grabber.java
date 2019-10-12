@@ -17,7 +17,7 @@ public class Grabber implements Subsystem {
     }
 
     public enum GrabberState{
-        DOWN(180),
+        DOWN(1),
         OFF(0);
 
         private final double grabberState;

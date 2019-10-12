@@ -4,13 +4,12 @@ import com.disnodeteam.dogecommander.Command;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
-import org.firstinspires.ftc.teamcode.subsystems.Grabber;
 
-public class DriveFoundation implements Command {
+public class StrafeToPosition implements Command {
+
     private Drive drive;
-    private String mode;
 
-
+    static final double distance = 152.4;
     static final double TICKSPERREVOLUTION  = 95.5;      // drive motors
     static final double AUTO_DURATION = 30.0;    // in seconds
     static final double WHEEL_DIAMETER = 99.822;    // in mm
@@ -18,14 +17,13 @@ public class DriveFoundation implements Command {
 
 
 
-    public DriveFoundation(Drive drive, String mode){
+    public StrafeToPosition(Drive drive){
         this.drive = drive;
-        this.mode = mode;
     }
 
     @Override
     public void start() {
-        driveToFoundation(mode);
+        driveToEndPosition();
     }
 
     @Override
@@ -35,7 +33,7 @@ public class DriveFoundation implements Command {
 
     @Override
     public void stop() {
-        drive.setPower(0,0,0,0);
+
     }
 
     @Override
@@ -43,16 +41,11 @@ public class DriveFoundation implements Command {
         return false;
     }
 
-    private void driveToFoundation(String mode){
-        double dist = (1200.2 - ROBOT_LENGTH);
+    public void driveToEndPosition(){
+        double dist = (distance - ROBOT_LENGTH);
         double distPerRev = WHEEL_DIAMETER * Math.PI;
         double ticksToFoundation = (dist / distPerRev) * TICKSPERREVOLUTION;
-        if (mode.equals("to")){
-            driveToPosit((int)Math.ceil(ticksToFoundation));
-        } else if(mode.equals("from")){
-            driveToPosit(-((int)Math.ceil(ticksToFoundation)));
-        }
-
+        driveToPosit((int)Math.ceil(ticksToFoundation));
     }
 
     private void driveToPosit(int ticks){
@@ -60,8 +53,5 @@ public class DriveFoundation implements Command {
         drive.setMode(DcMotor.RunMode.RUN_TO_POSITION, DcMotor.RunMode.RUN_TO_POSITION);
         drive.setPower(.25,.25,.25,.25);
     }
-
-
-
 
 }
