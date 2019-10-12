@@ -66,8 +66,8 @@ public class Drive implements Subsystem {
         leftBackPower = 0;
         rightBackPower = 0;
 
-        runModeRight = DcMotor.RunMode.RUN_WITHOUT_ENCODER;
-        runModeLeft = DcMotor.RunMode.RUN_WITHOUT_ENCODER;
+        runModeRight = DcMotor.RunMode.RUN_USING_ENCODER;
+        runModeLeft = DcMotor.RunMode.RUN_USING_ENCODER;
     }
 
     @Override
@@ -76,6 +76,18 @@ public class Drive implements Subsystem {
         rightFrontMotor.setPower(rightFrontPower);
         leftBackMotor.setPower(leftBackPower);
         rightBackMotor.setPower(rightBackPower);
+
+        leftFrontMotor.setTargetPosition(positionLeft);
+        leftBackMotor.setTargetPosition(positionLeft);
+        rightFrontMotor.setTargetPosition(positionRight);
+        rightBackMotor.setTargetPosition(positionRight);
+
+        leftFrontMotor.setMode(runModeLeft);
+        leftBackMotor.setMode(runModeLeft);
+        rightFrontMotor.setMode(runModeRight);
+        rightBackMotor.setMode(runModeRight);
+
+
     }
 
 
