@@ -7,25 +7,9 @@
 // the build definitions, you can place those customizations in this file, but
 // please think carefully as to whether such customizations are really necessary
 // before doing so.
+
+
 // Custom definitions may go here
+
 // Include common definitions from above.
 apply from: '../build.common.gradle'
-dependencies {
-    /*
-     * Other Modules
-     */
-    implementation project(':FtcRobotController')
-    implementation project(':DogeCommander')
-
-    turboImplementation project(':Hardware')
-    turboImplementation project(':RobotCore')
-    turboImplementation project(':FtcCommon')
-
-    extremeTurboImplementation project(':Hardware')
-    extremeTurboImplementation project(':RobotCore')
-    extremeTurboImplementation project(':FtcCommon')
-
-    stockImplementation 'org.openftc:hardware-stock:5.2'
-    stockImplementation 'org.openftc:robotcore-stock:5.2'
-    stockImplementation 'org.openftc:ftccommon-stock:5.2'
-}
